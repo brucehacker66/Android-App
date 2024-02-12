@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">StressHits</string>
+    <string name="encourage">Let it go!</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_message">Enter Name</string>
+    <string name="btn_hit">HIT ME</string>
+    <string name="btn_sm">little hit</string>
+    <string name="btn_lg">BIG HIT</string>
+    <string name="hits_msg">#hits:</string>
+    <string name="title_activity_hits">HitsActivity</string>
+    <string name="context_prefs">CONTEXT_PREFS</string>
+</resources>
