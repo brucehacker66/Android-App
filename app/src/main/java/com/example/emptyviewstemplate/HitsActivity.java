@@ -29,7 +29,7 @@ public class HitsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hits);
+        setContentView(R.layout.activity_setting);
 
         Intent intent = getIntent();
 

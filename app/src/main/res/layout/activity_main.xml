@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,37 +9,133 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="155dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/hits_label"
+            android:id="@+id/current_timezone_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8sp"
-            android:text="@string/hits_msg"
-            android:textSize="24sp" />
+            android:text="@string/currzone_label"
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/hits_value"
+            android:id="@+id/cur_zone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/currzone_location"
+            android:textSize="34sp" />
+
+        <Spinner
+            android:id="@+id/timezone_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/cur_timezone_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/currzone_time"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="89dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/original_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ori_time_label"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/original_time_display"
+            android:onClick="popTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:hint="hint"
-            android:textSize="24sp" />
+            android:text="@string/ori_time"
+            android:textSize="34sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="121dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/home_timezone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homezone_label"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/home_zone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homezone_location"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/home_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homezone_time"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="84dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/converted_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/con_time_label"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/converted_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/con_time"
+            android:layout_gravity="center_horizontal"
+            android:textSize="34sp" />
+
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/convert_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:text="@string/btn_hit"
-        android:onClick="hitme"/>
+        android:layout_height="70dp"
+        android:text="@string/convert_button"
+        android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:id="@+id/setting_button"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_label"
+        android:layout_gravity="right" />
 </LinearLayout>
+
+
+
