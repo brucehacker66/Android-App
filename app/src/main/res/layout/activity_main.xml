@@ -59,12 +59,15 @@
 
         <Button
             android:id="@+id/original_time_display"
-            android:onClick="popTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="#00000000"
+            android:onClick="popTimePicker"
             android:text="@string/ori_time"
-            android:textSize="34sp" />
+            android:textColor="#616060"
+            android:textSize="30sp"
+            app:strokeColor="#00FFFFFF" />
 
     </LinearLayout>
 

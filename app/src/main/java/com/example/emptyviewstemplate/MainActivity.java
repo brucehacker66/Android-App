@@ -63,16 +63,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         myPrefs = this.getPreferences(Activity.MODE_PRIVATE);
         peditor = myPrefs.edit();
 
+
         setTimezone();
 
+        //set default timezones
         cur_zone = "America/New_York";
         home_zone = "America/Los_Angeles";
         TextView cur_zone_label = findViewById(R.id.cur_zone_text);
         cur_zone_label.setText(cur_zone);
-
         TextView home_zone_label = findViewById(R.id.home_zone_text);
         home_zone_label.setText(home_zone);
 
+        //set to current time
         Calendar calendar = Calendar.getInstance();
         original_hr =  calendar.get(Calendar.HOUR_OF_DAY);
         original_min = calendar.get(Calendar.MINUTE);
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //spinner.setSelection(0); //default to NewYork
         spinner.setOnItemSelectedListener(this);
         // Set the default selection
+
 
         Button convert = findViewById(R.id.convert_button);
         convert.setOnClickListener(convertListener);
