@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HitsActivity">
+    tools:context=".SettingActivity">
+
 
     <TextView
-        android:id="@+id/msg"
+        android:id="@+id/setting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:hint="@string/encourage"
-        android:textSize="36sp" />
+        android:layout_marginTop="4dp"
+        android:hint="@string/setting_title"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_sm"
-        android:layout_marginTop="24dp"
+        android:id="@+id/save_button"
+        android:layout_width="245dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="#388F3B"
+        android:text="@string/save_setting"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_town_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btn_sm"
-        android:textAllCaps="false"
-        android:layout_below="@id/msg" />
+        android:layout_marginTop="368dp"
+        android:text="@string/home_city"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/btn_lg"
+    <EditText
+        android:id="@+id/home_town_input"
         android:layout_width="match_parent"
-        android:layout_height="124dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/btn_lg"
-        android:textStyle="bold"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/enter_your_home_town"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_town_label" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

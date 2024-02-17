@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onDestroy();
     }
 
-    /** Called when the user clicks the HITME button */
+
     public void setting(View view) {
         // Do something in response to button
 
