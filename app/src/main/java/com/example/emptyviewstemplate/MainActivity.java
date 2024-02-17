@@ -27,8 +27,6 @@ import java.util.TimeZone;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-
     private SharedPreferences mPrefs;
     Button timeButton;
     HashMap<String, Integer> timezone_map = new HashMap<>();
@@ -36,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String cur_zone, home_zone;
    // int original_hr, original_min;
     Calendar ori_time, con_time;
-
-
 
     private void conversion() {
         con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
@@ -182,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void setting(View view) {
         // Do something in response to button
-
         Intent intent = new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
     }

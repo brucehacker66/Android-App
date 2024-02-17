@@ -78,7 +78,7 @@ public class SettingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing0
+                // Do nothing
             }
         });
         save_button.setOnClickListener(v -> {
@@ -90,9 +90,7 @@ public class SettingActivity extends AppCompatActivity {
                 editor.putString("homeTown", homeTown);
             }
             editor.putString("homeTimeZone", homeTimeZone);
-
             editor.apply();
-
             Intent intent = new Intent(SettingActivity.this, MainActivity.class);
             startActivity(intent);
         });
