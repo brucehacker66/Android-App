@@ -6,16 +6,30 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorBackGround"
+        app:layout_constraintBottom_toTopOf="@+id/home_timezone_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/original_time_label"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/current_timezone_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/currzone_label"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +51,25 @@
         android:layout_marginStart="9dp"
         android:layout_marginBottom="27dp"
         android:text="@string/currzone_time"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/original_time_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timezone_spinner"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!-- Set the background color to blue -->
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorBackGround"
+        app:layout_constraintBottom_toTopOf="@+id/home_timezone_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/original_time_label"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/original_time_label"
@@ -51,6 +78,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="15dp"
         android:text="@string/ori_time_label"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cur_timezone_num" />
@@ -59,16 +87,18 @@
         android:id="@+id/original_time_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00000000"
+        android:background="@color/colorBackGround"
+        android:backgroundTint="@color/colorBackGround"
+        android:backgroundTintMode="src_in"
+        android:foregroundTint="@color/colorPrimary"
         android:onClick="popTimePicker"
         android:text="@string/ori_time"
-        android:textColor="#616060"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/original_time_label"
         app:strokeColor="#00FFFFFF" />
-
 
     <TextView
         android:id="@+id/home_timezone_label"
@@ -77,6 +107,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="26dp"
         android:text="@string/homezone_label"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/original_time_display" />
@@ -87,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:text="@string/homezone_location"
+        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_timezone_label" />
@@ -97,10 +129,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:text="@string/homezone_time"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_zone_text" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorBackGround"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/converted_time_label"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/converted_time_label"
@@ -109,6 +152,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="15dp"
         android:text="@string/con_time_label"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_time" />
@@ -118,31 +162,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/con_time"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/converted_time_label" />
 
-
-    <Button
+    <ImageButton
         android:id="@+id/convert_button"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/convert_button"
+        android:background="#6fa2d0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/converted_time" />
+        app:layout_constraintTop_toBottomOf="@+id/converted_time"
+        app:srcCompat="@drawable/converter" />
 
-    <Button
+    <ImageButton
         android:id="@+id/setting_button"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_width="62dp"
+        android:layout_height="67dp"
+        android:background="#6fa2d0"
         android:onClick="setting"
-        android:text="@string/setting_label"
+        android:text="@string/setting_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convert_button" />
+        app:srcCompat="@drawable/img" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
 
-        Button convert = findViewById(R.id.convert_button);
+        ImageButton convert = findViewById(R.id.convert_button);
         convert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 conversion();
@@ -178,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // do stuff here
         super.onDestroy();
     }
-
 
     public void setting(View view) {
         // Do something in response to button
