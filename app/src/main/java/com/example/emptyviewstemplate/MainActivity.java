@@ -31,13 +31,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private SharedPreferences mPrefs;
     Button timeButton;
     HashMap<String, Integer> timezone_map = new HashMap<>();
-
     private String cur_zone, home_zone;
-    int original_hr, original_min;
-    int converted_hr, converted_min;
+   // int original_hr, original_min;
     Calendar ori_time, con_time;
 
-    String cur_time_format;
 
 
     private void conversion() {
@@ -198,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         };
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, original_hr, original_min, false);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, ori_time.get(Calendar.HOUR_OF_DAY), ori_time.get(Calendar.MINUTE), false);
 
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
