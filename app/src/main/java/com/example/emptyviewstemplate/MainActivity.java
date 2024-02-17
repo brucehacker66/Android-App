@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setTimezone();
 
         //set default timezones
-        TextView cur_zone_label = findViewById(R.id.cur_zone_text);
-        cur_zone_label.setText(cur_zone);
         TextView home_zone_label = findViewById(R.id.home_zone_text);
         home_zone_label.setText(home_zone);
 
@@ -91,12 +89,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.spinner_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        int position = adapter.getPosition(cur_zone);
+        spinner.setSelection(position);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cur_zone = parent.getItemAtPosition(position).toString();
-                TextView cur_time = findViewById(R.id.cur_zone_text);
-                cur_time.setText(cur_zone);
+                int tzPosition = adapter.getPosition(cur_zone);
+                spinner.setSelection(tzPosition);
+                ((TextView) parent.getSelectedView()).setTextColor(getResources().getColor(R.color.black));
+                ((TextView) parent.getSelectedView()).setTextSize(34);
                 SharedPreferences.Editor editor = mPrefs.edit();
                 //save timezone location to sharedPreferences
                 editor.putString("currentTimeZone", cur_zone);
@@ -180,8 +182,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //set up the original time button
                 timeButton = findViewById(R.id.original_time_display);
                 timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", original_hr, original_min));
-                TextView cur_zone_label = findViewById(R.id.cur_zone_text);
-                cur_zone_label.setText(cur_zone);
             }
 
         };

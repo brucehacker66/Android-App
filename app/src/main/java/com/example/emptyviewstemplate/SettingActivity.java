@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         homeTown = mPrefs.getString("homeTown", "Baltimore");
+        homeTimeZone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
 
         // initialize the EditText widget for the home town input
         EditText homeTownInput = findViewById(R.id.home_town_input);
@@ -41,10 +43,16 @@ public class SettingActivity extends AppCompatActivity {
                 R.array.spinner_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        int position = adapter.getPosition(homeTimeZone);
+        spinner.setSelection(position);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 homeTimeZone = parent.getItemAtPosition(position).toString();
+                int tzPosition = adapter.getPosition(homeTimeZone);
+                spinner.setSelection(tzPosition);
+                ((TextView) parent.getSelectedView()).setTextColor(getResources().getColor(R.color.black));
+                ((TextView) parent.getSelectedView()).setTextSize(34);
             }
 
             @Override
