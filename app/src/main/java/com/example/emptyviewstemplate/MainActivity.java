@@ -35,23 +35,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String cur_zone, home_zone;
     int original_hr, original_min;
     int converted_hr, converted_min;
-    LocalTime hometime, convertime;
-    private final View.OnClickListener convertListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            conversion();
-        }
-    };
+    Calendar ori_time, con_time;
+
+    String cur_time_format;
+
 
     private void conversion() {
-        converted_hr = original_hr + (timezone_map.get(home_zone) - timezone_map.get(cur_zone));
-        if (converted_hr > 24) {
-            converted_hr = converted_hr % 24;
-        } else if (converted_hr < 0) {
-            converted_hr = 24 + converted_hr;
+        con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
+        con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
+        TextView con_time_text = findViewById(R.id.converted_time);
+        String con_time_format = format_time(con_time);
+        con_time_text.setText(con_time_format);
+    }
+
+    private String format_time(Calendar calendar){
+        if (calendar.get(Calendar.AM_PM) == 0){
+            return String.format(Locale.getDefault(), "%02d:%02d AM", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE));
+        } else {
+            return String.format(Locale.getDefault(), "%02d:%02d PM", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE));
         }
-        converted_min = original_min;
-        TextView con_time = findViewById(R.id.converted_time);
-        con_time.setText(String.format(Locale.getDefault(), "%02d:%02d", converted_hr, converted_min));
     }
 
     @Override
@@ -68,19 +70,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         setTimezone();
 
+        ori_time = Calendar.getInstance(TimeZone.getTimeZone(cur_zone));  //set to current time of the chosen current time zone
+        con_time = Calendar.getInstance(TimeZone.getTimeZone(home_zone)); //set up the Calendar object for the home zone
+//        original_hr = ori_time.get(Calendar.HOUR_OF_DAY);
+//        original_min = ori_time.get(Calendar.MINUTE);
+        ori_time.set(Calendar.HOUR_OF_DAY, mPrefs.getInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY))) ;
+        ori_time.set(Calendar.MINUTE, mPrefs.getInt("original_hour", ori_time.get(Calendar.MINUTE)));
+
         //set default timezones
         TextView home_zone_label = findViewById(R.id.home_zone_text);
         home_zone_label.setText(home_zone);
 
-        //set to current time
-        Calendar calendar = Calendar.getInstance();
-        original_hr =  calendar.get(Calendar.HOUR_OF_DAY);
-        original_min = calendar.get(Calendar.MINUTE);
-
         //set converted time to the current time
         timeButton = findViewById(R.id.original_time_display);
-        timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", original_hr, original_min));
-
+        timeButton.setText(format_time(ori_time));
         conversion(); //perform initial conversion with current time and default timezone
 
         //set up the spinner for selecting timezone locations
@@ -107,14 +110,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing0
+                // Do nothing
             }
 
         });
 
 
         Button convert = findViewById(R.id.convert_button);
-        convert.setOnClickListener(convertListener);
+        convert.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                conversion();
+            }
+        });
     }
 
     private void setTimezone() {
@@ -176,12 +183,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-                original_hr = selectedHour;
-                original_min = selectedMinute;
-                //convertime = LocalTime.of(selectedHour, selectedMinute);
+                ori_time.set(Calendar.HOUR_OF_DAY, selectedHour);
+                ori_time.set(Calendar.MINUTE, selectedMinute);
+
                 //set up the original time button
                 timeButton = findViewById(R.id.original_time_display);
-                timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", original_hr, original_min));
+                timeButton.setText(format_time(ori_time));
+                SharedPreferences.Editor editor = mPrefs.edit();
+                //save original time to sharedPreferences
+                editor.putInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY));
+                editor.putInt("original_min", ori_time.get(Calendar.MINUTE));
+                editor.apply();
             }
 
         };
