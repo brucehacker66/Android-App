@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private SharedPreferences mPrefs;
     Button timeButton;
     HashMap<String, Integer> timezone_map = new HashMap<>();
+    private HashMap<String, String> timeZoneMap = new HashMap<>();
     private String cur_zone, home_zone;
    // int original_hr, original_min;
     Calendar ori_time, con_time;
@@ -53,6 +54,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    private void setTimeZoneMap() {
+        timeZoneMap.put("America/New_York", "GMT -05:00");
+        timeZoneMap.put("America/Los_Angeles", "GMT -08:00");
+        timeZoneMap.put("Europe/Berlin", "GMT +01:00");
+        timeZoneMap.put("Europe/Istanbul", "GMT +02:00");
+        timeZoneMap.put("Asia/Singapore", "GMT +08:00");
+        timeZoneMap.put("Asia/Tokyo", "GMT +09:00");
+        timeZoneMap.put("Australia/Canberra", "GMT +10:00");
+        timeZoneMap.put("Asia/Shanghai", "GMT +08:00");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         home_zone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
 
         setTimezone();
+        setTimeZoneMap();
 
         ori_time = Calendar.getInstance(TimeZone.getTimeZone(cur_zone));  //set to current time of the chosen current time zone
         con_time = Calendar.getInstance(TimeZone.getTimeZone(home_zone)); //set up the Calendar object for the home zone
@@ -77,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //set default timezones
         TextView home_zone_label = findViewById(R.id.home_zone_text);
         home_zone_label.setText(home_zone);
+
+        //set default GMT location time diff
+        TextView home_time_gmt = findViewById(R.id.home_time);
+        home_time_gmt.setText(timeZoneMap.get(home_zone));
+        TextView current_time_gmt = findViewById(R.id.cur_timezone_num);
+        current_time_gmt.setText(timeZoneMap.get(cur_zone));
 
         //set converted time to the current time
         timeButton = findViewById(R.id.original_time_display);
@@ -103,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //save timezone location to sharedPreferences
                 editor.putString("currentTimeZone", cur_zone);
                 editor.apply();
+                current_time_gmt.setText(timeZoneMap.get(cur_zone));
             }
 
             @Override

@@ -16,7 +16,7 @@
     <string name="con_time">8:24 AM</string>
     <string name="convert_button">convert</string>
     <string name="setting_label">setting</string>
-    <string name="save_setting">Save Home Time Zone\n</string>
+    <string name="save_setting">Save</string>
     <string name="enter_your_home_town">Enter your home town</string>
     <string name="home_city">Home City</string>
     <string-array name="spinner_options">

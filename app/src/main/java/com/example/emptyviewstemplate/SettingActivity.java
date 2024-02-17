@@ -15,15 +15,31 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+
 public class SettingActivity extends AppCompatActivity {
     private SharedPreferences mPrefs;
     private String homeTown;
     private String homeTimeZone;
+    private HashMap<String, String> timeZoneMap = new HashMap<>();
+
+    private void setTimeZoneMap() {
+        timeZoneMap.put("America/New_York", "GMT -05:00");
+        timeZoneMap.put("America/Los_Angeles", "GMT -08:00");
+        timeZoneMap.put("Europe/Berlin", "GMT +01:00");
+        timeZoneMap.put("Europe/Istanbul", "GMT +02:00");
+        timeZoneMap.put("Asia/Singapore", "GMT +08:00");
+        timeZoneMap.put("Asia/Tokyo", "GMT +09:00");
+        timeZoneMap.put("Australia/Canberra", "GMT +10:00");
+        timeZoneMap.put("Asia/Shanghai", "GMT +08:00");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        setTimeZoneMap();
 
         Button save_button = (Button) findViewById(R.id.save_button);
 
@@ -32,6 +48,10 @@ public class SettingActivity extends AppCompatActivity {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         homeTown = mPrefs.getString("homeTown", "Baltimore");
         homeTimeZone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
+
+        //set default GMT location time diff
+        TextView home_time_gmt = findViewById(R.id.cur_timezone_num);
+        home_time_gmt.setText(timeZoneMap.get(homeTimeZone));
 
         // initialize the EditText widget for the home town input
         EditText homeTownInput = findViewById(R.id.home_town_input);
@@ -53,6 +73,7 @@ public class SettingActivity extends AppCompatActivity {
                 spinner.setSelection(tzPosition);
                 ((TextView) parent.getSelectedView()).setTextColor(getResources().getColor(R.color.black));
                 ((TextView) parent.getSelectedView()).setTextSize(34);
+                home_time_gmt.setText(timeZoneMap.get(homeTimeZone));
             }
 
             @Override
