@@ -35,7 +35,7 @@
     <Spinner
         android:id="@+id/timezone_spinner"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="13dp"
@@ -43,7 +43,7 @@
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/setting_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,8 +75,6 @@
         android:id="@+id/original_time_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="27dp"
         android:backgroundTint="#00000000"
         android:onClick="popTimePicker"
@@ -84,7 +82,8 @@
         android:textColor="#616060"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/home_timezone_label"
-        app:layout_constraintStart_toEndOf="@+id/cur_timezone_num"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/original_time_label"
         app:strokeColor="#00FFFFFF" />
 
@@ -151,14 +150,13 @@
 
     <Button
         android:id="@+id/convert_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
+        android:layout_width="93dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="115dp"
         android:text="@string/convert_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/converted_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/converted_time" />
 
     <Button

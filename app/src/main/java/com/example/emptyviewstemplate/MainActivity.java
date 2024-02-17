@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,12 +28,11 @@ import java.util.TimeZone;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    private SharedPreferences myPrefs;
-    SharedPreferences.Editor peditor;
+    private SharedPreferences mPrefs;
     Button timeButton;
     HashMap<String, Integer> timezone_map = new HashMap<>();
 
-    String cur_zone, home_zone;
+    private String cur_zone, home_zone;
     int original_hr, original_min;
     int converted_hr, converted_min;
     LocalTime hometime, convertime;
@@ -60,15 +60,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
 
-        myPrefs = this.getPreferences(Activity.MODE_PRIVATE);
-        peditor = myPrefs.edit();
-
+        // get the shared current timezone and home time zone info in app
+        Context context = getApplicationContext();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        cur_zone = mPrefs.getString("currentTimeZone", "America/New_York");
+        home_zone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
 
         setTimezone();
 
         //set default timezones
-        cur_zone = "America/New_York";
-        home_zone = "America/Los_Angeles";
         TextView cur_zone_label = findViewById(R.id.cur_zone_text);
         cur_zone_label.setText(cur_zone);
         TextView home_zone_label = findViewById(R.id.home_zone_text);
@@ -91,9 +91,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.spinner_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //spinner.setSelection(0); //default to NewYork
-        spinner.setOnItemSelectedListener(this);
-        // Set the default selection
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cur_zone = parent.getItemAtPosition(position).toString();
+                TextView cur_time = findViewById(R.id.cur_zone_text);
+                cur_time.setText(cur_zone);
+                SharedPreferences.Editor editor = mPrefs.edit();
+                //save timezone location to sharedPreferences
+                editor.putString("currentTimeZone", cur_zone);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing0
+            }
+
+        });
 
 
         Button convert = findViewById(R.id.convert_button);
@@ -124,18 +139,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onPause() {
-
-//        peditor.putInt("hitsValue", numHits);
-//        peditor.apply();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-
-//        peditor.putInt("hitsValue", 10);
-//        peditor.apply();
-
         super.onStop();
     }
 
@@ -155,12 +163,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        cur_zone = parent.getItemAtPosition(position).toString();
-        TextView cur_time = findViewById(R.id.cur_zone_text);
-        cur_time.setText(cur_zone);
-
-        //save timezone location to sharedPreferences
-        peditor.putString("convert_zone", cur_zone);
     }
 
     @Override

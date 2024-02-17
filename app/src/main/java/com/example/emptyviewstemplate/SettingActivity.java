@@ -26,11 +26,10 @@ public class SettingActivity extends AppCompatActivity {
 
         Button save_button = (Button) findViewById(R.id.save_button);
 
-        // get the shared timezone in app
+        // get the shared timezone and hometown info in app
         Context context = getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         homeTown = mPrefs.getString("homeTown", "Baltimore");
-        homeTimeZone = mPrefs.getString("homeTimeZone", "America/New_York");
 
         // initialize the EditText widget for the home town input
         EditText homeTownInput = findViewById(R.id.home_town_input);
