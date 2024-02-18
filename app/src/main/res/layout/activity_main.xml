@@ -119,7 +119,7 @@
         android:layout_marginStart="9dp"
         android:text="@string/homezone_location"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_timezone_label" />
 

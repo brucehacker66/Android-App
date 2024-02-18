@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     HashMap<String, Integer> timezone_map = new HashMap<>();
     private HashMap<String, String> timeZoneMap = new HashMap<>();
     private String cur_zone, home_zone;
-   // int original_hr, original_min;
     Calendar ori_time, con_time;
     ImageView time_warning;
 
@@ -49,11 +48,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Toast toast = new Toast(getApplicationContext());
             toast.setView(view);
             toast.show();
-            // Toast.makeText(getApplicationContext(), "Current time zone and home time zone cannot be the same", Toast.LENGTH_LONG).show();
         } else {
             con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
             con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
-            updateImageViewVisibility();
+            updateImageViewVisibility(); //check rest hour warning
             TextView con_time_text = findViewById(R.id.converted_time);
             String con_time_format = format_time(con_time);
             con_time_text.setText(con_time_format);
@@ -61,11 +59,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private String format_time(Calendar calendar){
-        if (calendar.get(Calendar.AM_PM) == 0){
-            return String.format(Locale.getDefault(), "%02d:%02d AM", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE));
-        } else {
-            return String.format(Locale.getDefault(), "%02d:%02d PM", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE));
+        int hour = calendar.get(Calendar.HOUR);
+        if (hour == 0) {
+            hour = 12; // Change 0 to 12 if hour is "00"
         }
+
+        if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
+            return String.format(Locale.getDefault(), "%02d:%02d AM", hour, calendar.get(Calendar.MINUTE));
+        } else {
+            return String.format(Locale.getDefault(), "%02d:%02d PM", hour, calendar.get(Calendar.MINUTE));
+        }
+
     }
 
     private void setTimeZoneMap() {
@@ -93,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // get the shared current timezone and home time zone info in app
         Context context = getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -120,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TextView current_time_gmt = findViewById(R.id.cur_timezone_num);
         current_time_gmt.setText(timeZoneMap.get(cur_zone));
 
-
         //set up the warning for if time between 7am-11pm
         time_warning = findViewById(R.id.warning);
         //set converted time to the current time
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 int tzPosition = adapter.getPosition(cur_zone);
                 spinner.setSelection(tzPosition);
                 ((TextView) parent.getSelectedView()).setTextColor(getResources().getColor(R.color.black));
-                ((TextView) parent.getSelectedView()).setTextSize(34);
+                ((TextView) parent.getSelectedView()).setTextSize(30);
                 SharedPreferences.Editor editor = mPrefs.edit();
                 //save timezone location to sharedPreferences
                 editor.putString("currentTimeZone", cur_zone);
@@ -156,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
-
 
         ImageButton convert = findViewById(R.id.convert_button);
         convert.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -225,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                 ori_time.set(Calendar.HOUR_OF_DAY, selectedHour);
                 ori_time.set(Calendar.MINUTE, selectedMinute);
-
                 //set up the original time button
                 timeButton = findViewById(R.id.original_time_display);
                 timeButton.setText(format_time(ori_time));
@@ -235,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 editor.putInt("original_min", ori_time.get(Calendar.MINUTE));
                 editor.apply();
             }
-
         };
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, ori_time.get(Calendar.HOUR_OF_DAY), ori_time.get(Calendar.MINUTE), false);
