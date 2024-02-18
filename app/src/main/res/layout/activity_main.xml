@@ -135,15 +135,28 @@
         app:layout_constraintTop_toBottomOf="@+id/home_zone_text" />
 
     <View
+        android:id="@+id/con_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorBackGround"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/convert_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/converted_time_label"
         app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_view"
+        app:layout_constraintVertical_bias="0" />
 
     <TextView
         android:id="@+id/converted_time_label"
@@ -172,10 +185,11 @@
         android:id="@+id/convert_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#6fa2d0"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/convert_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/converted_time"
         app:srcCompat="@drawable/converter" />
@@ -184,12 +198,26 @@
         android:id="@+id/setting_button"
         android:layout_width="62dp"
         android:layout_height="67dp"
-        android:background="#6fa2d0"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimaryDark"
         android:onClick="setting"
         android:text="@string/setting_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/img" />
+
+    <ImageView
+        android:id="@+id/warning"
+        android:layout_width="62dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/warning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

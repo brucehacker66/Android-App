@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toast_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="5dp">
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:background="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/toast_message"
+        android:layout_width="247dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/cross"
+        android:background="#FFFFFF"
+        android:gravity="left|center_vertical"
+        android:text="Current time zone and home time zone cannot be the same"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="13sp"></TextView>
+
+    <ImageView
+        android:id="@+id/cross"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="2dip"
+        android:layout_marginEnd="0dip"
+        android:layout_marginBottom="0dip"
+        android:src="@drawable/cross"></ImageView>
+
+</RelativeLayout>
+

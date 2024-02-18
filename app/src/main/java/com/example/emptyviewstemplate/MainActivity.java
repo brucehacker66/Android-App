@@ -8,14 +8,18 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,13 +38,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String cur_zone, home_zone;
    // int original_hr, original_min;
     Calendar ori_time, con_time;
+    ImageView time_warning;
 
     private void conversion() {
-        con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
-        con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
-        TextView con_time_text = findViewById(R.id.converted_time);
-        String con_time_format = format_time(con_time);
-        con_time_text.setText(con_time_format);
+        if(home_zone.equals(cur_zone)) {
+            //error handling
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate(R.layout.toast_format,
+                    (ViewGroup) findViewById(R.id.toast_layout));
+            Toast toast = new Toast(getApplicationContext());
+            toast.setView(view);
+            toast.show();
+            // Toast.makeText(getApplicationContext(), "Current time zone and home time zone cannot be the same", Toast.LENGTH_LONG).show();
+        } else {
+            con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
+            con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
+            TextView con_time_text = findViewById(R.id.converted_time);
+            String con_time_format = format_time(con_time);
+            con_time_text.setText(con_time_format);
+        }
     }
 
     private String format_time(Calendar calendar){
@@ -60,6 +76,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         timeZoneMap.put("Asia/Tokyo", "GMT +09:00");
         timeZoneMap.put("Australia/Canberra", "GMT +10:00");
         timeZoneMap.put("Asia/Shanghai", "GMT +08:00");
+    }
+
+    private void updateImageViewVisibility() {
+        int time = con_time.get(Calendar.HOUR_OF_DAY);
+        if (time >= 23 || time < 7) {
+            time_warning.setVisibility(View.VISIBLE);
+        } else {
+            time_warning.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -94,11 +119,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TextView current_time_gmt = findViewById(R.id.cur_timezone_num);
         current_time_gmt.setText(timeZoneMap.get(cur_zone));
 
+
+        //set up the warning for if time between 7am-11pm
+        time_warning = findViewById(R.id.warning);
         //set converted time to the current time
         timeButton = findViewById(R.id.original_time_display);
         timeButton.setText(format_time(ori_time));
         conversion(); //perform initial conversion with current time and default timezone
-
+        updateImageViewVisibility();
         //set up the spinner for selecting timezone locations
         Spinner spinner = findViewById(R.id.timezone_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -133,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ImageButton convert = findViewById(R.id.convert_button);
         convert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                updateImageViewVisibility();
                 conversion();
             }
         });
