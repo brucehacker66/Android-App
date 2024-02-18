@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else {
             con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
             con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
+            updateImageViewVisibility();
             TextView con_time_text = findViewById(R.id.converted_time);
             String con_time_format = format_time(con_time);
             con_time_text.setText(con_time_format);
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         timeButton = findViewById(R.id.original_time_display);
         timeButton.setText(format_time(ori_time));
         conversion(); //perform initial conversion with current time and default timezone
-        updateImageViewVisibility();
         //set up the spinner for selecting timezone locations
         Spinner spinner = findViewById(R.id.timezone_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ImageButton convert = findViewById(R.id.convert_button);
         convert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                updateImageViewVisibility();
                 conversion();
             }
         });
