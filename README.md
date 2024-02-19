@@ -16,7 +16,9 @@ with the background color enhances the overall aesthetic appeal and reinforces a
 the interface. The addition of two arrows on the 'convert time' button enhances its intuitiveness, 
 facilitating more seamless user interaction and improving the overall user experience. 
 We think that these  adjustments not only prioritize user comfort but also uphold the app's aesthetic integrity,
-ultimately contributing to a more satisfying user journey without compromising functionality or navigation.
+ultimately contributing to a more satisfying user journey without compromising functionality or navigation. For 
+all the buttons, we use image button and set the background to transparent so that the button will not have a
+background color. 
 
 Design: 
 
