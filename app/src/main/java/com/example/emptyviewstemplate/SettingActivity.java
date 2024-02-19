@@ -82,7 +82,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         save_button.setOnClickListener(v -> {
-
             SharedPreferences.Editor editor = mPrefs.edit();
             // get the home town input from the EditText widget and push to shared preference:
             String homeTown = homeTownInput.getText().toString();
@@ -91,15 +90,13 @@ public class SettingActivity extends AppCompatActivity {
             }
             editor.putString("homeTimeZone", homeTimeZone);
             editor.apply();
-            Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-            startActivity(intent);
+            finish(); // finish the activity
         });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -109,7 +106,6 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 
@@ -122,12 +118,5 @@ public class SettingActivity extends AppCompatActivity {
     protected void onDestroy() {
         // do stuff here
         super.onDestroy();
-    }
-
-    /** Called when the user clicks the save button */
-    public void setting(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 }

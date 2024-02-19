@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else {
             return String.format(Locale.getDefault(), "%02d:%02d PM", hour, calendar.get(Calendar.MINUTE));
         }
-
     }
 
     private void setTimeZoneMap() {
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // get the shared current timezone and home time zone info in app
         Context context = getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        cur_zone = mPrefs.getString("currentTimeZone", "America/New_York");
+        cur_zone = "America/New_York";
         home_zone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
 
         setTimezone();
@@ -110,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         con_time = Calendar.getInstance(TimeZone.getTimeZone(home_zone)); //set up the Calendar object for the home zone
 //        original_hr = ori_time.get(Calendar.HOUR_OF_DAY);
 //        original_min = ori_time.get(Calendar.MINUTE);
-        ori_time.set(Calendar.HOUR_OF_DAY, mPrefs.getInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY))) ;
-        ori_time.set(Calendar.MINUTE, mPrefs.getInt("original_hour", ori_time.get(Calendar.MINUTE)));
+//        ori_time.set(Calendar.HOUR_OF_DAY, mPrefs.getInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY))) ;
+//        ori_time.set(Calendar.MINUTE, mPrefs.getInt("original_hour", ori_time.get(Calendar.MINUTE)));
 
-        //set default timezones
+        //set home timezones
         TextView home_zone_label = findViewById(R.id.home_zone_text);
         home_zone_label.setText(home_zone);
 
@@ -145,10 +144,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 spinner.setSelection(tzPosition);
                 ((TextView) parent.getSelectedView()).setTextColor(getResources().getColor(R.color.black));
                 ((TextView) parent.getSelectedView()).setTextSize(30);
-                SharedPreferences.Editor editor = mPrefs.edit();
-                //save timezone location to sharedPreferences
-                editor.putString("currentTimeZone", cur_zone);
-                editor.apply();
                 current_time_gmt.setText(timeZoneMap.get(cur_zone));
             }
 
@@ -186,6 +181,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onResume() {
         super.onResume();
+        home_zone = mPrefs.getString("homeTimeZone", "America/Los_Angeles");
+        //set home timezones
+        TextView home_zone_label = findViewById(R.id.home_zone_text);
+        home_zone_label.setText(home_zone);
+        //set default GMT location time diff
+        TextView home_time_gmt = findViewById(R.id.home_time);
+        home_time_gmt.setText(timeZoneMap.get(home_zone));
     }
 
     @Override
