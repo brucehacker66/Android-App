@@ -107,10 +107,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ori_time = Calendar.getInstance(TimeZone.getTimeZone(cur_zone));  //set to current time of the chosen current time zone
         con_time = Calendar.getInstance(TimeZone.getTimeZone(home_zone)); //set up the Calendar object for the home zone
-//        original_hr = ori_time.get(Calendar.HOUR_OF_DAY);
-//        original_min = ori_time.get(Calendar.MINUTE);
-//        ori_time.set(Calendar.HOUR_OF_DAY, mPrefs.getInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY))) ;
-//        ori_time.set(Calendar.MINUTE, mPrefs.getInt("original_hour", ori_time.get(Calendar.MINUTE)));
 
         //set home timezones
         TextView home_zone_label = findViewById(R.id.home_zone_text);
@@ -188,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //set default GMT location time diff
         TextView home_time_gmt = findViewById(R.id.home_time);
         home_time_gmt.setText(timeZoneMap.get(home_zone));
+        conversion();
     }
 
     @Override
