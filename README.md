@@ -27,9 +27,11 @@ from a selected time zone to the user's home time zone. As the user probably wou
 location frequently, differentiating that function into a secondary setting page is a reasonable design. A design 
 suggestion is to use other names to title the time displays. The "original time" and "converted time" can be not 
 intuitive for the user to realize that the original time is the time in the current time zone and the converted 
-time is the time at their home location. ,
+time is the time at their home location. 
 
-
+Even though it was not specified in the requirement, a design feature we implemented was to let the 11pm-7am 
+alert disappeared if the user change the home time zone to the same time zone as the current time zone as it
+does not make sense to let the alert be visible in this case.
 
 Test the app:
 

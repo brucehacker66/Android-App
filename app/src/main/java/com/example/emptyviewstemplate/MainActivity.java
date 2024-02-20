@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Toast toast = new Toast(getApplicationContext());
             toast.setView(view);
             toast.show();
+            time_warning.setVisibility(View.GONE); //remove the previous alert
         } else {
             con_time.set(Calendar.HOUR_OF_DAY, ori_time.get(Calendar.HOUR_OF_DAY) + (timezone_map.get(home_zone) - timezone_map.get(cur_zone)));
             con_time.set(Calendar.MINUTE, ori_time.get(Calendar.MINUTE));
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (hour == 0) {
             hour = 12; // Change 0 to 12 if hour is "00"
         }
-
         if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
             return String.format(Locale.getDefault(), "%02d:%02d AM", hour, calendar.get(Calendar.MINUTE));
         } else {
@@ -227,16 +227,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //set up the original time button
                 timeButton = findViewById(R.id.original_time_display);
                 timeButton.setText(format_time(ori_time));
-                SharedPreferences.Editor editor = mPrefs.edit();
-                //save original time to sharedPreferences
-                editor.putInt("original_hour", ori_time.get(Calendar.HOUR_OF_DAY));
-                editor.putInt("original_min", ori_time.get(Calendar.MINUTE));
-                editor.apply();
             }
         };
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, ori_time.get(Calendar.HOUR_OF_DAY), ori_time.get(Calendar.MINUTE), false);
-
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
